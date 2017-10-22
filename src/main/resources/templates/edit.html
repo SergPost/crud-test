@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--/*/ <th:block th:include="parts/common :: head"></th:block> /*/-->
+</head>
+<body>
+<!--/*/ <th:block th:include="parts/common :: header"></th:block> /*/-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            
+            <!-- Edit form -->
+            <form id="edit" th:object="${book}" th:action="@{/book}" method="post">
+                
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">
+                            <span class="glyphicon glyphicon-book" aria-hidden="true"></span> BOOK
+                        </h2>
+                    </div>
+                    
+                    <div class="panel-body">
+                        
+                        <input th:field="*{id}" class="form-control" type="hidden" id="id" name="id"/>
+                        
+                        <div class="row">
+                            <!-- Book title -->
+                            <div class="form-group col-sm-6">
+                                <label for="title">Book title</label>
+                                <input th:field="*{title}" type="text" class="form-control" id="title" name="title"
+                                       placeholder="Book title"/>
+                            </div>
+                        </div>
+
+                        <div class="row">                            
+                            <!-- Description -->
+                            <div class="form-group col-sm-6">
+                                <label for="description">Description</label>
+                                <input th:field="*{description}" type="text" class="form-control" id="description" name="description"
+                                       placeholder="Description"/>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <!-- Author -->
+                            <div class="form-group col-sm-6">
+                                <label for="title">Author</label>
+                                <input th:field="*{author}" type="text" class="form-control" id="author" name="author"
+                                       placeholder="Author"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- ISBN -->
+                            <div class="form-group col-sm-6">
+                                <label for="isbn">ISBN</label>
+                                <input th:field="*{isbn}" type="text" class="form-control" id="isbn" name="isbn"
+                                        placeholder="Isbn"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- PrintYear -->
+                            <div class="form-group col-sm-6">
+                                <label for="printYear">PrintYear</label>
+                                <input th:field="*{printYear}" type="number" class="form-control" id="printYear" name="printYear"
+                                       placeholder="PrintYear"/>
+                            </div>
+                       </div>
+
+                       <div class="row">
+                            <!-- ReadAlready -->
+                            <div class="checkbox col-sm-6">
+                                <label>
+                                    <input th:checked="*{readAlready}" type="checkbox" th:field="*{readAlready}" id="readAlready"
+                                           name="readAlready"/> ReadAlready
+                                </label>
+                            </div>
+                        
+                        </div>
+                    
+                    </div>
+                    
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <div class="btn-toolbar">
+                                <span class="btn-toolbar pull-right" role="toolbar">
+                                    <button type="submit" class="btn btn-primary">
+                                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Save
+                                    </button>
+                                    <a class="btn btn-default" th:classappend="${book.id == null} ? 'hidden'"
+                                       th:href="${'/book/delete/' + book.id}">
+                                       <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>  Delete
+                                    </a>
+                                    <button type="reset" class="btn btn-default" onclick="window.open('/','_self')">
+                                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>  Cancel
+                                    </button>
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                
+                </div>
+            
+            </form>
+        
+        </div>
+    </div>
+</div>
+<!--/*/ <th:block th:include="parts/common :: footer"></th:block> /*/-->
+</body>
+</html>

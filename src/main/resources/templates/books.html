@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--/*/ <th:block th:include="parts/common :: head"></th:block> /*/-->
+</head>
+<body>
+<!--/*/ <th:block th:include="parts/common :: header"></th:block> /*/-->
+<div class="container">
+    
+    <div class="panel panel-default">
+        
+        <div class="panel-heading">
+            <h1 class="panel-title text-uppercase">
+                <span class="glyphicon glyphicon-book"></span> Books
+                <a th:href="${'/book'}" class="btn btn-primary btn-xs pull-right" style="color: white">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New book
+                </a>
+            </h1>
+        </div>
+
+        <!-- Filter -->
+        <div class="panel-footer">
+            <form action="/" method="get">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="input-group input-group-sm">
+                            
+                            <span class="input-group-addon" id="sizing-addon3">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </span>
+                            <input th:value="${query}" id="query" name="q" type="text" class="form-control" aria-describedby="sizing-addon3"
+                                   placeholder="Type the part of Book title to search and hit 'Enter'"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <button type="submit" class="btn btn-primary btn-sm">Search (Enter)</button>
+                        <a href="/" class="btn btn-default btn-sm">Reset (Esc)</a>
+                    </div>
+                </div>
+            </form>
+        </div>  
+        
+        <div class="panel-body">
+            
+            <!-- Book table -->
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Book title</th>
+                    <th>Description</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+                    <th>PrintYear</th>
+                    <th>readAlready</th>
+                </tr>
+                </thead>
+                <tr
+                        th:each="book : ${books}" th:onclick="|window.open('${'/book/' + book.id}', '_self')|"
+                >
+                    <td data-label="Book title" th:text="${book.title}">Title</td>
+                    <td data-label="Description" th:text="${book.description}">Description</td>
+                    <td data-label="Author" th:text="${book.author}">Author</td>
+                    <td data-label="ISBN" th:text="${book.isbn}">ISBN</td>
+                    <td data-label="PrintYear" th:text="${book.printYear}">PrintYear</td>
+                    <td data-label="ReadAlready" align="center">
+                        <div th:if="${book.readAlready}"><p>Yes</p></div>
+                        <div th:unless="${book.readAlready}"><p>No</p></div>
+                    </td>
+                </tr>
+            </table>
+    
+            <!-- Pagination-->
+            <nav>
+                <ul class="pagination pagination-sm">
+                    <li th:each="i : ${#numbers.sequence(0, (totalPages > 0) ? totalPages-1 : 0)}"
+                        th:class="${(current == i)}? 'active'" th:classappend="${totalPages lt 2}? 'hidden'">
+                        
+                        <a th:href="(${query} != null) ? @{/(page=${i}, q=${query})} : @{/(page=${i})}">
+                            <span th:text="${i}"></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        
+    </div>
+
+</div>
+<!--/*/ <th:block th:include="parts/common :: footer"></th:block> /*/-->
+</body>
+</html>
