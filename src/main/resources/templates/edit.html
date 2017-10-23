@@ -47,6 +47,7 @@
                             <div class="form-group col-sm-6">
                                 <label for="title">Author</label>
                                 <input th:field="*{author}" type="text" class="form-control" id="author" name="author"
+                                       th:readonly="(*{author} != null)"
                                        placeholder="Author"/>
                             </div>
                         </div>
@@ -71,15 +72,12 @@
 
                        <div class="row">
                             <!-- ReadAlready -->
-                            <div class="checkbox col-sm-6">
-                                <label>
-                                    <input th:checked="*{readAlready}" type="checkbox" th:field="*{readAlready}" id="readAlready"
-                                           name="readAlready"/> ReadAlready
-                                </label>
+                            <div class="form-group col-sm-6">
+                                <label for="readAlready">Read already?</label>
+                                <a th:if="*{readAlready}"><i title="Yes - already read it!" class="glyphicon glyphicon-ok-circle" style="font-size:20px;"></i></a>
+                                <a th:unless="*{readAlready}"><i title="No - didn't read" class="glyphicon glyphicon-remove-circle" style="font-size:20px;"></i></a>
                             </div>
-                        
                         </div>
-                    
                     </div>
                     
                     <ul class="list-group">
@@ -100,11 +98,8 @@
                             </div>
                         </li>
                     </ul>
-                
                 </div>
-            
             </form>
-        
         </div>
     </div>
 </div>

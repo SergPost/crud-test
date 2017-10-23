@@ -52,6 +52,10 @@ public class RootController {
     
     @PostMapping("/book")
     public String save(@ModelAttribute Book book) {
+
+        if (book.getReadAlready()) {
+            book.setReadAlready(false);
+        }
         repo.save(book);
         try {
             return "redirect:/?q=" + URLEncoder.encode(book.getTitle(), "UTF8");
@@ -71,5 +75,20 @@ public class RootController {
         Book book = new Book();
         model.addAttribute("book", book);
         return "edit";
+    }
+
+    @PostMapping("/read")
+    public String read(@ModelAttribute Book book) {
+
+        Integer id = book.getId();
+        book = repo.findOne(id);
+        book.setReadAlready(true);
+        repo.save(book);
+
+        try {
+            return "redirect:/?q=" + URLEncoder.encode(book.getTitle(), "UTF8");
+        } catch (UnsupportedEncodingException ignore) {
+            return "redirect:/";
+        }
     }
 }

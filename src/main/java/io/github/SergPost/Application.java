@@ -15,14 +15,11 @@ public class Application {
     @Bean
     public CommandLineRunner demo(BookRepo repo) {
         return args -> {
-    
             Iterable<Book> books = repo.findAll();
             if (books.iterator().hasNext()) {
-                
                 for (Book book : books) {
                     System.out.println(book.toString());
                 }
-                
                 return;
             }
         };

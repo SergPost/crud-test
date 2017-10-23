@@ -24,7 +24,6 @@
                 <div class="row">
                     <div class="col-xs-6">
                         <div class="input-group input-group-sm">
-                            
                             <span class="input-group-addon" id="sizing-addon3">
                                 <span class="glyphicon glyphicon-search"></span>
                             </span>
@@ -51,7 +50,7 @@
                     <th>Author</th>
                     <th>ISBN</th>
                     <th>PrintYear</th>
-                    <th>readAlready</th>
+                    <th>Read already?</th>
                 </tr>
                 </thead>
                 <tr
@@ -62,9 +61,14 @@
                     <td data-label="Author" th:text="${book.author}">Author</td>
                     <td data-label="ISBN" th:text="${book.isbn}">ISBN</td>
                     <td data-label="PrintYear" th:text="${book.printYear}">PrintYear</td>
-                    <td data-label="ReadAlready" align="center">
-                        <div th:if="${book.readAlready}"><p>Yes</p></div>
-                        <div th:unless="${book.readAlready}"><p>No</p></div>
+                    <td th:if="${!book.readAlready}" align="center">
+                        <form th:action="@{/read}" method="post">
+                            <input th:value="${book.id}" type="hidden" name="id"/>
+                            <input title="Click to set 'Yes'" type="submit" th:value="Set"/>
+                        </form>
+                    </td>
+                    <td  align="center">
+                        <a th:if="${book.readAlready}"><i title="Yes - already read it" class="glyphicon glyphicon-ok-circle" style="font-size:20px;"></i></a>
                     </td>
                 </tr>
             </table>
